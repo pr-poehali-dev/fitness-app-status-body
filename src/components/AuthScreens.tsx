@@ -31,7 +31,7 @@ export function WelcomeScreen({ onLogin, onRegister }: { onLogin: () => void; on
         <div className="absolute bottom-0 left-0 right-0 px-6 pb-10">
           <div className="mb-6">
             <h2 className="font-display text-3xl text-white leading-tight mb-2">РЕЗУЛЬТАТ<br /><span className="text-neon">НАЧИНАЕТСЯ</span><br />СЕГОДНЯ</h2>
-            <p className="text-white/50 font-body text-sm">Программы под ваши цели, контроль БЖУ и живое сообщество</p>
+            <p className="text-white/50 font-body text-sm">Программы под ваши цели</p>
           </div>
 
           <div className="flex gap-3">
