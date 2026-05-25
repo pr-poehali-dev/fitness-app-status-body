@@ -74,11 +74,20 @@ export interface DayWorkout {
   duration: string;
   exercises: Exercise[];
   done: boolean;
+  videoUrl?: string;
+  challenge?: { title: string; reps: string; desc: string };
 }
+
+// VK video embed: https://vk.com/video_ext.php?oid=-214521474&id=XXXXXX&hd=2
+const CHARGE_VIDEO = "https://vk.com/video_ext.php?oid=-214521474&id=456239367&hd=2";
+const WORKOUT_1 = "https://vk.com/video_ext.php?oid=-214521474&id=456239364&hd=2";
+const WORKOUT_2 = "https://vk.com/video_ext.php?oid=-214521474&id=456239366&hd=2";
+const WORKOUT_3 = "https://vk.com/video_ext.php?oid=-214521474&id=456239365&hd=2";
 
 export const weekWorkouts: DayWorkout[] = [
   {
     day: "ПН", label: "Понедельник", type: "зарядка", duration: "15 мин", done: true,
+    videoUrl: CHARGE_VIDEO,
     exercises: [
       { name: "Наклоны шеи", reps: "10 раз в каждую сторону", desc: "Медленно наклоняйте голову вправо, затем влево. Плечи расслаблены, спина прямая.", img: EXERCISE_IMG_1 },
       { name: "Вращение плечами", reps: "15 раз вперёд и назад", desc: "Круговые движения плечами назад — расправляем грудную клетку и снимаем зажимы.", img: EXERCISE_IMG_1 },
@@ -88,6 +97,7 @@ export const weekWorkouts: DayWorkout[] = [
   },
   {
     day: "ВТ", label: "Вторник", type: "тренировка", duration: "30 мин", done: true,
+    videoUrl: WORKOUT_1,
     exercises: [
       { name: "Приседания", reps: "3×15", desc: "Ноги на ширине плеч, носки чуть врозь. Опускайтесь до параллели бёдер с полом, колени не выходят за носки.", img: EXERCISE_IMG_2 },
       { name: "Отжимания с колен", reps: "3×10", desc: "Опора на колени и ладони. Тело — прямая линия от колен до головы. Грудь опускается до пола.", img: EXERCISE_IMG_2 },
@@ -98,9 +108,11 @@ export const weekWorkouts: DayWorkout[] = [
   {
     day: "СР", label: "Среда", type: "отдых", duration: "—", done: false,
     exercises: [],
+    challenge: { title: "Задание дня", reps: "100 приседаний", desc: "Разбей на удобные подходы в течение дня. Можно 10×10, 5×20 или как удобно — главное выполнить!" },
   },
   {
     day: "ЧТ", label: "Четверг", type: "зарядка", duration: "15 мин", done: false,
+    videoUrl: CHARGE_VIDEO,
     exercises: [
       { name: "Потягивания вверх", reps: "10 раз", desc: "Встаньте на носки, тянитесь руками вверх, вдох — потянулись, выдох — опустились.", img: EXERCISE_IMG_1 },
       { name: "Махи ногами", reps: "15 раз каждой ногой", desc: "Держитесь за стул. Прямая нога — мах вперёд и назад без рывков, амплитуда комфортная.", img: EXERCISE_IMG_1 },
@@ -109,6 +121,7 @@ export const weekWorkouts: DayWorkout[] = [
   },
   {
     day: "ПТ", label: "Пятница", type: "тренировка", duration: "35 мин", done: false,
+    videoUrl: WORKOUT_3,
     exercises: [
       { name: "Выпады на месте", reps: "3×12 каждой ногой", desc: "Шаг вперёд, опустите заднее колено почти до пола. Переднее колено над носком, спина прямая.", img: EXERCISE_IMG_2 },
       { name: "Отжимания от стены", reps: "3×15", desc: "Встаньте перед стеной, упритесь ладонями. Сгибайте руки, приближая грудь к стене. Тело прямое.", img: EXERCISE_IMG_2 },
@@ -118,6 +131,8 @@ export const weekWorkouts: DayWorkout[] = [
   },
   {
     day: "СБ", label: "Суббота", type: "тренировка", duration: "25 мин", done: false,
+    videoUrl: WORKOUT_2,
+    challenge: { title: "Задание дня", reps: "50 отжиманий", desc: "Можно с колен! Разбей на подходы: 5×10 или 10×5. Выполни в течение дня." },
     exercises: [
       { name: "Берпи (лёгкие)", reps: "3×8", desc: "Присели, руки на пол, шагом (не прыжком) вышли в планку, вернулись, встали. Без рывков.", img: EXERCISE_IMG_2 },
       { name: "Боковая планка", reps: "2×20 сек каждой стороны", desc: "Опора на предплечье и боковую сторону стопы. Тело прямое, таз не провисает.", img: EXERCISE_IMG_2 },
@@ -127,6 +142,7 @@ export const weekWorkouts: DayWorkout[] = [
   {
     day: "ВС", label: "Воскресенье", type: "отдых", duration: "—", done: false,
     exercises: [],
+    challenge: { title: "Задание дня", reps: "Планка 3 минуты", desc: "Суммарно за день. Держи по 30–60 секунд, отдыхай и повторяй. Это твой актив на неделю!" },
   },
 ];
 

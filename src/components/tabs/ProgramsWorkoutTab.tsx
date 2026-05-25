@@ -288,19 +288,21 @@ export function WorkoutTab({ selectedWorkout, onSelectWorkout, onBackFromWorkout
             {weekWorkouts.map((w, i) => (
               <div key={i}
                 className={`rounded-2xl p-4 flex items-center gap-4 cursor-pointer transition-all
-                  ${w.done ? 'bg-neon/5 border border-neon/20' : w.type === 'отдых' ? 'bg-white/02 border border-white/04 opacity-50' : 'card-dark border border-white/06 hover:border-neon/20'}`}
-                onClick={() => w.type !== 'отдых' && onSelectWorkout(i)}>
+                  ${w.done ? 'bg-neon/5 border border-neon/20' : w.challenge && w.type === 'отдых' ? 'card-dark border border-orange-500/20 hover:border-orange-500/40' : w.type === 'отдых' ? 'bg-white/02 border border-white/04 opacity-40' : 'card-dark border border-white/06 hover:border-neon/20'}`}
+                onClick={() => onSelectWorkout(i)}>
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-display text-lg flex-shrink-0
-                  ${w.done ? 'bg-neon text-dark-bg' : w.type === 'отдых' ? 'bg-white/05' : 'bg-white/05'}`}>
-                  {w.done ? '✅' : w.type === 'зарядка' ? '☀️' : w.type === 'тренировка' ? '💪' : '😴'}
+                  ${w.done ? 'bg-neon text-dark-bg' : w.challenge && w.type === 'отдых' ? 'bg-orange-500/10' : 'bg-white/05'}`}>
+                  {w.done ? '✅' : w.type === 'зарядка' ? '☀️' : w.type === 'тренировка' ? '💪' : w.challenge ? '⚡' : '😴'}
                 </div>
                 <div className="flex-1">
                   <div className="font-display text-sm text-white">{w.day} — {w.label.toUpperCase()}</div>
                   <div className="text-xs text-white/40 font-body mt-0.5 capitalize">
-                    {w.type === 'отдых' ? 'День отдыха' : `${w.type} · ${w.duration} · ${w.exercises.length} упр.`}
+                    {w.type === 'отдых' && w.challenge ? `Задание дня · ${w.challenge.reps}` : w.type === 'отдых' ? 'День отдыха' : `${w.type} · ${w.duration} · ${w.exercises.length} упр.`}
                   </div>
                 </div>
-                {w.done ? <span className="text-xs text-neon font-body">Готово</span> : w.type !== 'отдых' && <Icon name="ChevronRight" size={16} className="text-white/30" />}
+                {w.done
+                  ? <span className="text-xs text-neon font-body">Готово</span>
+                  : <Icon name="ChevronRight" size={16} className="text-white/30" />}
               </div>
             ))}
           </div>
@@ -315,30 +317,61 @@ export function WorkoutTab({ selectedWorkout, onSelectWorkout, onBackFromWorkout
               <Icon name="ArrowLeft" size={18} className="text-white" />
             </button>
             <div>
-              <div className="text-xs text-neon font-display tracking-wider capitalize">
-                {activeDay.type === 'зарядка' ? '☀️ ЗАРЯДКА' : '💪 ТРЕНИРОВКА'} · {activeDay.duration}
+              <div className="text-xs text-neon font-display tracking-wider">
+                {activeDay.type === 'зарядка' ? '☀️ ЗАРЯДКА' : activeDay.type === 'тренировка' ? '💪 ТРЕНИРОВКА' : '⚡ ЗАДАНИЕ ДНЯ'} · {activeDay.duration !== '—' ? activeDay.duration : ''}
               </div>
               <h2 className="font-display text-xl text-white">{activeDay.label.toUpperCase()}</h2>
             </div>
           </div>
 
-          <div className="px-4 space-y-3">
-            {activeDay.exercises.map((ex, i) => (
-              <div key={i} className="card-dark rounded-2xl overflow-hidden border border-white/06 cursor-pointer hover:border-neon/20 transition-all"
-                onClick={() => setSelectedExercise(i)}>
-                <img src={ex.img} alt={ex.name} className="w-full h-32 object-cover" />
-                <div className="p-4">
-                  <div className="font-display text-base text-white mb-0.5">{ex.name.toUpperCase()}</div>
-                  <div className="text-xs text-neon font-body">{ex.reps}</div>
-                  <div className="text-xs text-white/40 font-body mt-1 line-clamp-2">{ex.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* VK Видео */}
+          {activeDay.videoUrl && (
+            <div className="mx-4 mb-4 rounded-2xl overflow-hidden border border-neon/20" style={{ aspectRatio: '16/9' }}>
+              <iframe
+                src={activeDay.videoUrl}
+                className="w-full h-full"
+                allow="encrypted-media; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          )}
 
-          <div className="px-4 mt-5 mb-4">
-            <button className="btn-neon w-full py-4 rounded-xl text-sm">ТРЕНИРОВКА ЗАВЕРШЕНА ✓</button>
-          </div>
+          {/* Задание дня (для дней отдыха) */}
+          {activeDay.challenge && (
+            <div className="mx-4 mb-4 rounded-2xl p-5 border border-orange-500/30" style={{ background: 'linear-gradient(135deg, #141414 0%, #1a1000 100%)' }}>
+              <div className="text-xs text-orange-400 font-display tracking-widest mb-1">⚡ {activeDay.challenge.title.toUpperCase()}</div>
+              <div className="font-display text-2xl text-white mb-2">{activeDay.challenge.reps}</div>
+              <p className="text-white/50 font-body text-sm leading-relaxed">{activeDay.challenge.desc}</p>
+              {activeDay.type === 'отдых' && (
+                <button className="mt-4 w-full py-3 rounded-xl text-sm font-display tracking-wide border border-orange-500/40 text-orange-400 hover:bg-orange-500/10 transition-all">
+                  ВЫПОЛНЕНО ✓
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Упражнения */}
+          {activeDay.exercises.length > 0 && (
+            <div className="px-4 space-y-3">
+              {activeDay.exercises.map((ex, i) => (
+                <div key={i} className="card-dark rounded-2xl overflow-hidden border border-white/06 cursor-pointer hover:border-neon/20 transition-all"
+                  onClick={() => setSelectedExercise(i)}>
+                  <img src={ex.img} alt={ex.name} className="w-full h-32 object-cover" />
+                  <div className="p-4">
+                    <div className="font-display text-base text-white mb-0.5">{ex.name.toUpperCase()}</div>
+                    <div className="text-xs text-neon font-body">{ex.reps}</div>
+                    <div className="text-xs text-white/40 font-body mt-1 line-clamp-2">{ex.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {activeDay.type !== 'отдых' && (
+            <div className="px-4 mt-5 mb-4">
+              <button className="btn-neon w-full py-4 rounded-xl text-sm">ТРЕНИРОВКА ЗАВЕРШЕНА ✓</button>
+            </div>
+          )}
         </div>
       )}
 
