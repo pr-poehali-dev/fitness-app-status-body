@@ -5,7 +5,7 @@ import { PROGRESS_IMG, BJU_GOAL, productDatabase, readyMenus, Product, weekStats
 
 // ── ПИТАНИЕ ────────────────────────────────────────────────
 export function NutritionTab() {
-  const [activeSection, setActiveSection] = useState<"constructor" | "ready">("constructor");
+  const [activeSection, setActiveSection] = useState<"constructor" | "ready" | "swaps">("constructor");
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [myProducts, setMyProducts] = useState<(Product & { qty: number })[]>([
@@ -43,7 +43,7 @@ export function NutritionTab() {
 
       {/* Tabs */}
       <div className="px-4 mb-4 flex gap-2">
-        {([["constructor", "Мой рацион"], ["ready", "Готовые меню"]] as const).map(([key, label]) => (
+        {([["constructor", "Рацион"], ["ready", "Меню"], ["swaps", "Замены"]] as const).map(([key, label]) => (
           <button key={key} onClick={() => setActiveSection(key)}
             className={`flex-1 py-2 rounded-xl text-xs font-display tracking-wider border transition-all
               ${activeSection === key ? 'border-neon bg-neon/10 text-neon' : 'border-white/10 text-white/40 hover:border-white/30'}`}>
@@ -170,6 +170,89 @@ export function NutritionTab() {
           </div>
         </div>
       )}
+
+      {/* ── ЗАМЕНЫ ПРОДУКТОВ ── */}
+      {activeSection === "swaps" && (
+        <div className="px-4 space-y-4">
+          {[
+            {
+              meal: "🌅 Завтрак",
+              desc: "Выбери один вариант",
+              options: [
+                { name: "Овсянка + 2 яйца", bju: "Б 20 / Ж 14 / У 52" },
+                { name: "Гречка + творог 150г", bju: "Б 22 / Ж 6 / У 24" },
+                { name: "Омлет 3 яйца + овощи", bju: "Б 19 / Ж 16 / У 6" },
+                { name: "Рисовая каша + яйцо", bju: "Б 10 / Ж 6 / У 38" },
+                { name: "Творог 200г + банан", bju: "Б 24 / Ж 6 / У 32" },
+              ],
+            },
+            {
+              meal: "🍎 Перекус",
+              desc: "Лёгкий вариант между приёмами пищи",
+              options: [
+                { name: "Яблоко + миндаль 30г", bju: "Б 4 / Ж 14 / У 20" },
+                { name: "Творог 100г", bju: "Б 17 / Ж 5 / У 2" },
+                { name: "Банан + кефир", bju: "Б 7 / Ж 3 / У 32" },
+                { name: "Яйца варёные 2шт", bju: "Б 12 / Ж 10 / У 0" },
+                { name: "Огурцы + хумус", bju: "Б 5 / Ж 8 / У 8" },
+              ],
+            },
+            {
+              meal: "🍽️ Обед",
+              desc: "Полноценный приём пищи",
+              options: [
+                { name: "Куриная грудка + рис + овощи", bju: "Б 42 / Ж 6 / У 45" },
+                { name: "Лосось + гречка + салат", bju: "Б 38 / Ж 18 / У 24" },
+                { name: "Тунец + макароны из тв.сортов", bju: "Б 35 / Ж 4 / У 48" },
+                { name: "Индейка + картофель + брокколи", bju: "Б 38 / Ж 5 / У 38" },
+                { name: "Яйца 3шт + гречка + огурец", bju: "Б 26 / Ж 16 / У 26" },
+              ],
+            },
+            {
+              meal: "🌙 Ужин",
+              desc: "Лёгкий, не позднее 3 часов до сна",
+              options: [
+                { name: "Лосось + брокколи на пару", bju: "Б 28 / Ж 14 / У 6" },
+                { name: "Куриная грудка + овощи", bju: "Б 34 / Ж 4 / У 10" },
+                { name: "Творог 200г + огурец", bju: "Б 26 / Ж 6 / У 6" },
+                { name: "Тунец + листовой салат", bju: "Б 28 / Ж 2 / У 4" },
+                { name: "Омлет 2 яйца + авокадо", bju: "Б 14 / Ж 20 / У 5" },
+              ],
+            },
+          ].map(({ meal, desc, options }) => (
+            <MealSwapBlock key={meal} meal={meal} desc={desc} options={options} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MealSwapBlock({ meal, desc, options }: { meal: string; desc: string; options: { name: string; bju: string }[] }) {
+  const [selected, setSelected] = useState<number | null>(null);
+
+  return (
+    <div className="card-dark rounded-2xl overflow-hidden border border-white/06">
+      <div className="px-4 py-3 border-b border-white/06">
+        <div className="font-display text-base text-white">{meal}</div>
+        <div className="text-xs text-white/40 font-body mt-0.5">{desc}</div>
+      </div>
+      <div className="divide-y divide-white/05">
+        {options.map((opt, i) => (
+          <button key={i} onClick={() => setSelected(selected === i ? null : i)}
+            className={`w-full px-4 py-3 flex items-center justify-between text-left transition-all
+              ${selected === i ? 'bg-neon/08' : 'hover:bg-white/03'}`}>
+            <div>
+              <div className={`font-body text-sm ${selected === i ? 'text-neon' : 'text-white'}`}>{opt.name}</div>
+              <div className="text-[11px] text-white/35 font-body mt-0.5">{opt.bju}</div>
+            </div>
+            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ml-3 transition-all
+              ${selected === i ? 'bg-neon border-neon' : 'border-white/20'}`}>
+              {selected === i && <Icon name="Check" size={11} className="text-dark-bg" />}
+            </div>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
