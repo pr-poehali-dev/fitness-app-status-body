@@ -1,6 +1,8 @@
 import Icon from "@/components/ui/icon";
 import { MacroBadge } from "@/components/AuthScreens";
-import { User, HERO_IMG, weekStats, BJU_GOAL, productDatabase, weekWorkouts } from "@/components/data";
+import { User, weekStats, BJU_GOAL, productDatabase, weekWorkouts } from "@/components/data";
+
+const TRAINER_IMG = "https://cdn.poehali.dev/projects/a6eebf6a-8a28-45e2-b14b-36ca711b8edd/files/4320af98-df09-48ec-bf8d-946268b88026.jpg";
 
 interface HomeTabProps {
   user: User;
@@ -25,7 +27,7 @@ export default function HomeTab({ user, onStartWorkout, onGoToCourses }: HomeTab
     <div className="flex-1 overflow-y-auto scrollbar-hidden pb-24">
       {/* Hero */}
       <div className="relative h-64 overflow-hidden">
-        <img src={HERO_IMG} alt="Hero" className="w-full h-full object-cover" />
+        <img src={TRAINER_IMG} alt="Тренер" className="w-full h-full object-cover object-top" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-dark-bg" />
         <div className="absolute bottom-0 left-0 right-0 p-5">
           <div className="text-xs font-display text-neon tracking-[0.3em] mb-1">ПРИВЕТ, {user.name.toUpperCase()}</div>
