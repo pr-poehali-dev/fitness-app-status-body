@@ -2,7 +2,7 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { User } from "@/components/data";
 
-const TRAINER_IMG = "https://cdn.poehali.dev/projects/a6eebf6a-8a28-45e2-b14b-36ca711b8edd/bucket/3193a692-0d71-4309-ae98-75af828e9c83.jpg";
+const TRAINER_IMG = "https://cdn.poehali.dev/projects/a6eebf6a-8a28-45e2-b14b-36ca711b8edd/bucket/800f0eb4-1043-40aa-a1a1-32b28006f503.png";
 
 export function MacroBadge({ label, value, goal, color }: { label: string; value: number; goal: number; color: string }) {
   const pct = Math.min(100, Math.round((value / goal) * 100));
@@ -20,39 +20,60 @@ export function MacroBadge({ label, value, goal, color }: { label: string; value
 
 export function WelcomeScreen({ onLogin, onRegister }: { onLogin: () => void; onRegister: () => void }) {
   return (
-    <div className="min-h-screen bg-dark-bg flex flex-col max-w-md mx-auto">
-      <div className="relative flex-1">
-        <img src={TRAINER_IMG} alt="STATUS BODY" className="w-full h-full object-cover absolute inset-0" style={{ objectPosition: 'center 5%', transform: 'scale(1.2)', transformOrigin: 'top center' }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-dark-bg" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-dark-bg to-transparent" />
+    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-hidden" style={{ background: '#0D0D0D' }}>
 
-        <div className="absolute top-14 left-6">
-          <div className="font-display text-5xl text-white tracking-widest leading-none">STATUS <span className="text-neon">BODY</span></div>
-          <div className="text-xs text-white/40 font-body tracking-[0.3em] mt-1">ГОТОВЫЕ ПРОГРАММЫ ДЛЯ ПОХУДЕНИЯ И ВОССТАНОВЛЕНИЯ ФИГУРЫ</div>
+      {/* Фоновый неоновый блик */}
+      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(170,239,0,0.12) 0%, transparent 70%)', transform: 'translate(20%, 20%)' }} />
+      <div className="absolute top-0 left-0 w-48 h-48 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(170,239,0,0.05) 0%, transparent 70%)' }} />
+
+      {/* Верхняя часть: логотип + тренер */}
+      <div className="relative flex-1 flex flex-col">
+
+        {/* Логотип */}
+        <div className="px-6 pt-14 z-10">
+          <div className="font-display text-5xl text-white tracking-widest leading-none">
+            STATUS <span className="text-neon">BODY</span>
+          </div>
+          <div className="text-xs text-white/35 font-body tracking-[0.25em] mt-2 leading-relaxed">
+            ГОТОВЫЕ ПРОГРАММЫ ДЛЯ<br />ПОХУДЕНИЯ И ВОССТАНОВЛЕНИЯ
+          </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 px-6 pb-10">
-          <div className="mb-6">
-            <h2 className="font-display text-3xl text-white leading-tight mb-2">РЕЗУЛЬТАТ<br /><span className="text-neon">НАЧИНАЕТСЯ</span><br />СЕГОДНЯ</h2>
-            <p className="text-white/50 font-body text-sm">Программы под ваши цели</p>
-          </div>
+        {/* Тренер — PNG без фона, позиционирован справа */}
+        <div className="relative flex-1 flex items-end justify-end">
+          <img
+            src={TRAINER_IMG}
+            alt="Тренер"
+            className="w-4/5 object-contain object-bottom drop-shadow-2xl"
+            style={{ filter: 'drop-shadow(0 0 40px rgba(170,239,0,0.15))' }}
+          />
+          {/* Неоновая линия под тренером */}
+          <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(170,239,0,0.4), transparent)' }} />
+        </div>
+      </div>
 
-          <div className="flex gap-3">
-            <button onClick={onRegister} className="btn-neon flex-1 py-4 rounded-2xl text-sm">
-              НАЧАТЬ БЕСПЛАТНО
-            </button>
-            <button onClick={onLogin} className="btn-outline-neon py-4 px-5 rounded-2xl text-sm">
-              ВОЙТИ
-            </button>
-          </div>
+      {/* Нижняя часть: текст + кнопки */}
+      <div className="px-6 pb-10 pt-6" style={{ background: 'linear-gradient(to top, #0D0D0D 80%, transparent)' }}>
+        <h2 className="font-display text-3xl text-white leading-tight mb-1">
+          РЕЗУЛЬТАТ<br /><span className="text-neon">НАЧИНАЕТСЯ</span><br />СЕГОДНЯ
+        </h2>
+        <p className="text-white/40 font-body text-sm mb-6">Программы под ваши цели</p>
 
-          <div className="flex items-center justify-center gap-4 mt-5 text-xs text-white/25 font-body">
-            <span>10 000+ участников</span>
-            <span>·</span>
-            <span>Без рекламы</span>
-            <span>·</span>
-            <span>БЖУ контроль</span>
-          </div>
+        <div className="flex gap-3 mb-5">
+          <button onClick={onRegister} className="btn-neon flex-1 py-4 rounded-2xl text-sm">
+            НАЧАТЬ БЕСПЛАТНО
+          </button>
+          <button onClick={onLogin} className="btn-outline-neon py-4 px-5 rounded-2xl text-sm">
+            ВОЙТИ
+          </button>
+        </div>
+
+        <div className="flex items-center justify-center gap-4 text-xs text-white/20 font-body">
+          <span>10 000+ участников</span>
+          <span>·</span>
+          <span>Без рекламы</span>
+          <span>·</span>
+          <span>БЖУ контроль</span>
         </div>
       </div>
     </div>
