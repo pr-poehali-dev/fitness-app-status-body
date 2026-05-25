@@ -25,7 +25,7 @@ export function WelcomeScreen({ onLogin, onRegister }: { onLogin: () => void; on
 
         <div className="absolute top-14 left-6">
           <div className="font-display text-5xl text-white tracking-widest leading-none">STATUS <span className="text-neon">BODY</span></div>
-          <div className="text-xs text-white/40 font-body tracking-[0.3em] mt-1">ТВОЙ ПЕРСОНАЛЬНЫЙ ТРЕНЕР</div>
+          <div className="text-xs text-white/40 font-body tracking-[0.3em] mt-1">ГОТОВЫЕ ПРОГРАММЫ ДЛЯ ПОХУДЕНИЯ И ВОССТАНОВЛЕНИЯ ФИГУРЫ</div>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 px-6 pb-10">
