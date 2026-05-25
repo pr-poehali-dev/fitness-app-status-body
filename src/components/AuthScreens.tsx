@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
-import { HERO_IMG, User } from "@/components/data";
+import { User } from "@/components/data";
+
+const TRAINER_IMG = "https://cdn.poehali.dev/projects/a6eebf6a-8a28-45e2-b14b-36ca711b8edd/files/4320af98-df09-48ec-bf8d-946268b88026.jpg";
 
 export function MacroBadge({ label, value, goal, color }: { label: string; value: number; goal: number; color: string }) {
   const pct = Math.min(100, Math.round((value / goal) * 100));
@@ -20,7 +22,7 @@ export function WelcomeScreen({ onLogin, onRegister }: { onLogin: () => void; on
   return (
     <div className="min-h-screen bg-dark-bg flex flex-col max-w-md mx-auto">
       <div className="relative flex-1">
-        <img src={HERO_IMG} alt="STATUS BODY" className="w-full h-full object-cover absolute inset-0" />
+        <img src={TRAINER_IMG} alt="STATUS BODY" className="w-full h-full object-cover object-top absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-dark-bg" />
 
         <div className="absolute top-14 left-6">
