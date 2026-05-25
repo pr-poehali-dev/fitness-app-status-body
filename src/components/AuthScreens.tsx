@@ -2,7 +2,7 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { User } from "@/components/data";
 
-const TRAINER_IMG = "https://cdn.poehali.dev/projects/a6eebf6a-8a28-45e2-b14b-36ca711b8edd/files/4320af98-df09-48ec-bf8d-946268b88026.jpg";
+const TRAINER_IMG = "https://cdn.poehali.dev/projects/a6eebf6a-8a28-45e2-b14b-36ca711b8edd/bucket/3193a692-0d71-4309-ae98-75af828e9c83.jpg";
 
 export function MacroBadge({ label, value, goal, color }: { label: string; value: number; goal: number; color: string }) {
   const pct = Math.min(100, Math.round((value / goal) * 100));
