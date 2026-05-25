@@ -22,12 +22,12 @@ export default function AppTabs({ user, onLogout }: AppTabsProps) {
         <HomeTab
           user={user}
           onStartWorkout={() => { setSelectedWorkout(1); setActiveTab("workout"); }}
-          onGoToPrograms={() => setActiveTab("programs")}
+          onGoToCourses={() => setActiveTab("programs")}
         />
       )}
 
       {activeTab === "programs" && (
-        <ProgramsTab onGoToWorkout={(id) => { setSelectedWorkout(id); setActiveTab("workout"); }} />
+        <ProgramsTab />
       )}
 
       {activeTab === "workout" && (
