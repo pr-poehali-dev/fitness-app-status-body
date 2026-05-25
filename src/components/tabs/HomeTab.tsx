@@ -27,8 +27,9 @@ export default function HomeTab({ user, onStartWorkout, onGoToCourses }: HomeTab
     <div className="flex-1 overflow-y-auto scrollbar-hidden pb-24">
       {/* Hero */}
       <div className="relative h-64 overflow-hidden">
-        <img src={TRAINER_IMG} alt="Тренер" className="w-full h-full object-cover object-top" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-dark-bg" />
+        <img src={TRAINER_IMG} alt="Тренер" className="w-full h-full object-cover" style={{ objectPosition: 'center 5%', transform: 'scale(1.15)', transformOrigin: 'top center' }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-dark-bg" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-dark-bg to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-5">
           <div className="text-xs font-display text-neon tracking-[0.3em] mb-1">ПРИВЕТ, {user.name.toUpperCase()}</div>
           <h1 className="font-display text-4xl text-white leading-none">СЕГОДНЯ<br /><span className="text-neon">{todayWorkout.day} — {todayWorkout.type.toUpperCase()}</span></h1>

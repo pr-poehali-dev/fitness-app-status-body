@@ -22,8 +22,9 @@ export function WelcomeScreen({ onLogin, onRegister }: { onLogin: () => void; on
   return (
     <div className="min-h-screen bg-dark-bg flex flex-col max-w-md mx-auto">
       <div className="relative flex-1">
-        <img src={TRAINER_IMG} alt="STATUS BODY" className="w-full h-full object-cover object-top absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-dark-bg" />
+        <img src={TRAINER_IMG} alt="STATUS BODY" className="w-full h-full object-cover absolute inset-0" style={{ objectPosition: 'center 5%', transform: 'scale(1.2)', transformOrigin: 'top center' }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-dark-bg" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-dark-bg to-transparent" />
 
         <div className="absolute top-14 left-6">
           <div className="font-display text-5xl text-white tracking-widest leading-none">STATUS <span className="text-neon">BODY</span></div>
