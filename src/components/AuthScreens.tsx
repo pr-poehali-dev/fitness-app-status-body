@@ -20,11 +20,11 @@ export function WelcomeScreen({ onLogin, onRegister }: { onLogin: () => void; on
   return (
     <div className="min-h-screen bg-dark-bg flex flex-col max-w-md mx-auto">
       <div className="relative flex-1">
-        <img src={HERO_IMG} alt="FORZA" className="w-full h-full object-cover absolute inset-0" />
+        <img src={HERO_IMG} alt="STATUS BODY" className="w-full h-full object-cover absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-dark-bg" />
 
         <div className="absolute top-14 left-6">
-          <div className="font-display text-5xl text-white tracking-widest leading-none">FOR<span className="text-neon">ZA</span></div>
+          <div className="font-display text-5xl text-white tracking-widest leading-none">STATUS <span className="text-neon">BODY</span></div>
           <div className="text-xs text-white/40 font-body tracking-[0.3em] mt-1">ТВОЙ ПЕРСОНАЛЬНЫЙ ТРЕНЕР</div>
         </div>
 
@@ -80,7 +80,7 @@ export function LoginScreen({ onBack, onSuccess }: { onBack: () => void; onSucce
 
       <div className="mb-8">
         <div className="font-display text-4xl text-white mb-1">ВХОД</div>
-        <div className="text-white/40 font-body text-sm">В аккаунт FORZA</div>
+        <div className="text-white/40 font-body text-sm">В аккаунт STATUS BODY</div>
       </div>
 
       <div className="space-y-4 mb-6">

@@ -3,7 +3,7 @@ import { AuthScreen, User } from "@/components/data";
 import { WelcomeScreen, LoginScreen, RegisterScreen } from "@/components/AuthScreens";
 import AppTabs from "@/components/AppTabs";
 
-export default function ForzaApp() {
+export default function StatusBodyApp() {
   const [authScreen, setAuthScreen] = useState<AuthScreen>("welcome");
   const [user, setUser] = useState<User | null>(null);
 
